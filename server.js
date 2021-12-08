@@ -2,7 +2,7 @@ const puppeteer = require("puppeteer");
 const { Telegraf } = require("telegraf");
 const {parse, stringify, toJSON, fromJSON} = require('flatted');
 
-const bot = new Telegraf("5008074125:AAFgOpp2zt1xyvANTgpmB_7DafzqKXINtW4");
+const bot = new Telegraf("process.env.BOT_TOKEN");
 let text = ''
 bot.start((ctx) => ctx.reply("Welcome"));
 bot.help((ctx) => ctx.reply("Type 'Attendance' for checking attendance"));
@@ -17,7 +17,6 @@ bot.launch();
 // Enable graceful stop
 process.once("SIGINT", () => bot.stop("SIGINT"));
 process.once("SIGTERM", () => bot.stop("SIGTERM"));
-// MG73c534fccc1a65c1bc1e0956dd914f20
 
 const red = async (ctx) => {
   const browser = await puppeteer.launch();
@@ -25,8 +24,8 @@ const red = async (ctx) => {
   await page.goto("http://www.webprosindia.com/hitam/", {
     waitUntil: "networkidle0",
   });
-  await page.type("#txtId2", "19E51A0524");
-  await page.type("#txtPwd2", "THankyou12@!");
+  await page.type("#txtId2", process.env.userid);
+  await page.type("#txtPwd2", process.env.PASSWORD);
   await page.click("#imgBtn2");
   await page.waitForNetworkIdle();
   const page1 = await browser.newPage();
